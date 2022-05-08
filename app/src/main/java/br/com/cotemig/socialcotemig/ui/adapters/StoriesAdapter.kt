@@ -64,7 +64,7 @@ class StoriesAdapter(private var context: Context, private var stories: List<Sto
 
             val image = itemView.findViewById<ImageView>(R.id.storyImage)
             Glide.with(context).load(stories.avatar).apply(
-                RequestOptions().transform(RoundedCorners(58))
+                RequestOptions().transform(RoundedCorners(48))
             ).into(image)
         }
     }

@@ -15,10 +15,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 
-class   FeedAdapter(var context: Context, var list: List<Post>) :
+class   FeedAdapter(private var context: Context, private var list: List<Post>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        var view = LayoutInflater.from(context).inflate(R.layout.item_feed, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.item_feed, parent, false)
         return PostHolder(view)
     }
 
@@ -30,36 +30,36 @@ class   FeedAdapter(var context: Context, var list: List<Post>) :
         return list.size
     }
 
-    class PostHolder(var view: View) : RecyclerView.ViewHolder(view) {
+    class PostHolder(private var view: View) : RecyclerView.ViewHolder(view) {
         fun bind(context: Context, post: Post) {
 
-            var username = view.findViewById<TextView>(R.id.username)
+            val username = view.findViewById<TextView>(R.id.username)
             username.text = post.user
 
-            var locationName = view.findViewById<TextView>(R.id.locationName)
+            val locationName = view.findViewById<TextView>(R.id.locationName)
             locationName.text = post.local
 
-            var date = view.findViewById<TextView>(R.id.date)
+            val date = view.findViewById<TextView>(R.id.date)
             date.text = post.date
 
-            var description = view.findViewById<TextView>(R.id.description)
+            val description = view.findViewById<TextView>(R.id.description)
             description.text = post.description
 
-            var likes = view.findViewById<TextView>(R.id.likes)
+            val likes = view.findViewById<TextView>(R.id.likes)
             likes.text = post.likes.size.toString()
 
-            var avatar = view.findViewById<ImageView>(R.id.avatar)
+            val avatar = view.findViewById<ImageView>(R.id.avatar)
             Glide.with(context).load(post.avatar)
                 .apply(
                     RequestOptions().transform(RoundedCorners(100))
                 ).into(avatar)
 
-            var gallery = view.findViewById<RecyclerView>(R.id.gallery)
+            val gallery = view.findViewById<RecyclerView>(R.id.gallery)
             gallery.adapter = GalleryAdapter(context, post.gallery)
             gallery.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             gallery.onFlingListener = null
 
-            var snapHelper = PagerSnapHelper()
+            val snapHelper = PagerSnapHelper()
             snapHelper.attachToRecyclerView(gallery)
 //            var postImage = view.findViewById<ImageView>(R.id.postImage)
 //            Glide.with(context).load(post.image).into(postImage)

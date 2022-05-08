@@ -24,16 +24,16 @@ class FeedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_feed, container, false)
+        val view = inflater.inflate(R.layout.fragment_feed, container, false)
             getStories(view)
             getFeed(view)
         return view
     }
 
-    fun getFeed(view : View){
+    private fun getFeed(view : View){
 
-        var s = RetrofitInitializer().serviceFeed()
-        var call = s.getFeed()
+        val s = RetrofitInitializer().serviceFeed()
+        val call = s.getFeed()
 
         call.enqueue(object : retrofit2.Callback<List<Post>>{
             override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
@@ -51,15 +51,15 @@ class FeedFragment : Fragment() {
     }
 
     fun showFeed(view: View,list: List<Post>){
-        var recyclerViewFeed = view.findViewById<RecyclerView>(R.id.recyclerViewFeed)
+        val recyclerViewFeed = view.findViewById<RecyclerView>(R.id.recyclerViewFeed)
         recyclerViewFeed.adapter = FeedAdapter(context!!, list)
         recyclerViewFeed.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
     }
 
-    fun getStories(view: View){
+    private fun getStories(view: View){
 
-        var s = RetrofitInitializer().serviceStories()
-        var call = s.getStories()
+        val s = RetrofitInitializer().serviceStories()
+        val call = s.getStories()
         call.enqueue(object : retrofit2.Callback<List<Story>>{
             override fun onResponse(call: Call<List<Story>>, response: Response<List<Story>>) {
                 if(response.code() == 200){
@@ -77,7 +77,7 @@ class FeedFragment : Fragment() {
     }
 
     fun showStories(view: View,stories : List<Story>){
-        var recyclerview = view.findViewById<RecyclerView>(R.id.recyclerViewStory)
+        val recyclerview = view.findViewById<RecyclerView>(R.id.recyclerViewStory)
         recyclerview.adapter = StoriesAdapter(context!!, stories)
         recyclerview.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     }
